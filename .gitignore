@@ -1,0 +1,7 @@
+vim/swap
+vim/backup
+vim/undo
+vim/.netrwhist
+
+config/kak/plugins/*
+!config/kak/plugins/plug.kak

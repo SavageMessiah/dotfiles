@@ -1,0 +1,21 @@
+#!/usr/bin/env fish
+if test -z "$KAKOUNE_SESSION"
+    if test "$argv[1]" = "-t"
+        set argv $argv[2..-1]
+    end
+
+    exec kak $argv
+end
+
+if test "$argv[1]" = "-t"
+    exec kak -c $KAKOUNE_SESSION $argv[2..-1]
+end
+
+begin
+    echo "eval -try-client '$KAKOUNE_CLIENT' %{"
+    for f in $argv
+	set f (realpath $f)
+        echo "edit '$f'"
+    end
+    echo "focus}"
+end | kak -p $KAKOUNE_SESSION
