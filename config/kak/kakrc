@@ -29,12 +29,13 @@ plug "kak-lsp/kak-lsp" do %{
     cargo install --locked --force --path .
 } config %{
     hook global WinSetOption filetype=(go) %{
+        set-option window idle_timeout 250
         set-option window lsp_hover_max_lines 5
         set-option window lsp_auto_highlight_references true
         lsp-enable-window
         lsp-auto-hover-enable
         hook window BufWritePre .* lsp-formatting-sync
-    }
+   }
 }
 
 plug "andreyorst/smarttab.kak" defer smarttab %{
@@ -101,14 +102,8 @@ map -docstring 'fzf'               global user 'f' ': fzf-mode<ret>'
 map -docstring 'lsp'               global user 'l' ': enter-user-mode lsp<ret>'
 map -docstring 'new windows'       global user 'w' ': enter-user-mode window<ret>'
 map -docstring 'clipboard'         global user 'y' ': enter-user-mode clipboard<ret>'
-map -docstring 'make'              global user 'm' ': enter-user-mode make<ret>'
 map -docstring 'toggles'           global user 't' ': enter-user-mode toggle<ret>'
 map -docstring 'edit rc'           global user 'r' ': edit ~/.config/kak/kakrc<ret>'
-
-declare-user-mode make
-map -docstring 'make' global make 'm' ': make<ret>'
-map -docstring 'lint' global make 'l' ': lint<ret>'
-map -docstring 'format' global make 'f' ': format<ret>'
 
 define-command toggle-wrap -docstring "line wrapping" %{
     try %{
