@@ -29,6 +29,7 @@ plug "kak-lsp/kak-lsp" do %{
     cargo install --locked --force --path .
 } config %{
     hook global WinSetOption filetype=(go) %{
+        set-option window modelinefmt '{Error}%opt{lsp_diagnostic_error_count}{Default} %val{bufname} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]'
         set-option window idle_timeout 250
         set-option window lsp_hover_max_lines 5
         set-option window lsp_auto_highlight_references true
