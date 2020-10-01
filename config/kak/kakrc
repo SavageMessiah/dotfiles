@@ -5,9 +5,9 @@ colorscheme nord
 
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
-plug "andreyorst/fzf.kak" config %{
-    set-option global fzf_grep_command 'rg'
-    set-option global fzf_find_command 'fd . --type f'
+plug "andreyorst/fzf.kak" defer fzf %{
+    set-option global fzf_grep_command rg
+    set-option global fzf_file_command fd
 }
 
 plug "danr/kakoune-easymotion" config %{
