@@ -42,6 +42,7 @@
   :junegunn/fzf.vim {}
   :liuchengxu/vim-better-default {:mod :better-default}
   :mbbill/undotree {:mod :undotree}
+  :neovim/nvim-lspconfig {:mod :lsp}
   :radenling/vim-dispatch-neovim {}
   :tami5/compe-conjure {}
   :tpope/vim-commentary {}
@@ -54,6 +55,6 @@
   :tpope/vim-unimpaired {}
   :tpope/vim-vinegar {}
   :tweekmonster/startuptime.vim {}
-  :w0rp/ale {:mod :ale}
+  ;;:w0rp/ale {:mod :ale}
   :wbthomason/packer.nvim {}
   )
