@@ -3,9 +3,9 @@ if test -z "$KAKOUNE_SESSION"
     set PATH ~/.dotfiles/bin ~/bin ~/go/bin ~/.cabal/bin ~/.cargo/bin /usr/local/bin /usr/bin /bin /usr/sbin /sbin
 end
 
-set -x EDITOR "k"
-set VISUAL "k -t"
-set -x GIT_EDITOR "k -t"
+set -x EDITOR "nvim"
+set -x VISUAL "nvim"
+set -x GIT_EDITOR "nvim"
 
 set -x BAT_THEME Nord
 
@@ -25,3 +25,4 @@ abbr -g cdr 'cd (git rev-parse --show-toplevel)'
 abbr -g lt 'exa -lbT --git'
 abbr -g ll 'exa -lb --git'
 abbr -g ls 'exa'
+abbr -g n 'nvim'

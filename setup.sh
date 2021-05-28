@@ -29,6 +29,7 @@ fi
 ln -s $dot/vim .vim
 ln -s $dot/vimrc .vimrc
 ln -s $dot/tmux.conf .tmux.conf
+ln -s $dot/doom .doom.d
 
 ln -s $dot/config/kak-lsp ~/Library/Preferences/kak-lsp
 
