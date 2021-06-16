@@ -7,7 +7,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Ken Allen"
-      user-mail-address "kallen@lookingglasscyber.com")
+      user-mail-address "cardboard42@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -65,7 +65,8 @@
 (use-package! evil-cleverparens
   :hook
   ((clojure-mode . evil-cleverparens-mode)
-   (lisp-mode . evil-cleverparens-mode)))
+   (lisp-mode . evil-cleverparens-mode)
+   (emacs-lisp-mode . evil-cleverparens-mode)))
 
 (add-hook! clojure-mode
   (set-fill-column 90)
@@ -84,6 +85,10 @@
 
 (after! company
   (setq company-idle-delay 0.3))
+
+(after! browse-url
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
 (map! :leader
       "0" #'winum-select-window-0-or-10
