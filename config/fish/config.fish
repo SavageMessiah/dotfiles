@@ -1,8 +1,3 @@
-#let env overrides from connect.kak take effect
-if test -z "$KAKOUNE_SESSION"
-    set PATH ~/.dotfiles/bin ~/bin ~/go/bin ~/.cabal/bin ~/.cargo/bin /usr/local/bin /usr/bin /bin /usr/sbin /sbin
-end
-
 set -x EDITOR "nvim"
 set -x VISUAL "nvim"
 set -x GIT_EDITOR "nvim"
@@ -26,3 +21,4 @@ abbr -g lt 'exa -lbT --git'
 abbr -g ll 'exa -lb --git'
 abbr -g ls 'exa'
 abbr -g n 'nvim'
+abbr -g j 'just'
