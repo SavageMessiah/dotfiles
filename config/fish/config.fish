@@ -1,6 +1,9 @@
+set fish_user_paths ~/bin ~/.emacs.d/bin ~/.cargo/bin ~/go/bin ~/.local/bin
 set -x EDITOR "emacs"
 set -x VISUAL "emacs"
 set -x GIT_EDITOR "emacs"
+set rust_root (rustc --print sysroot)
+set -x RUST_SRC_PATH "$rust_root/lib/rustlib/src/rust/src"
 
 set -x BAT_THEME Nord
 
@@ -22,3 +25,4 @@ abbr -g ll 'exa -lb --git'
 abbr -g ls 'exa'
 abbr -g n 'nvim'
 abbr -g e 'emacs'
+abbr -g j 'just'

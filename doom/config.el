@@ -1,7 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
+;; sync' after [modifying] this file!
 
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
@@ -58,10 +58,12 @@
 
 (setq doom-localleader-key ",")
 
-;;(use-package! aggressive-indent
-;;  :hook
-;;  (clojure-mode . aggressive-indent-mode))
-;;
+(setq confirm-kill-emacs nil)
+
+(use-package! aggressive-indent
+  :hook
+  (clojure-mode . aggressive-indent-mode))
+
 (use-package! evil-cleverparens
   :hook
   ((clojure-mode . evil-cleverparens-mode)
@@ -70,6 +72,7 @@
 
 (add-hook! clojure-mode
   (set-fill-column 90)
+  (setq cider-dynamic-indentation nil)
   (define-clojure-indent
     (be/deftype 1)
     (be/impl 1)
@@ -83,6 +86,9 @@
     (stats/send-time 1)
     (dlock/if-lock 1)))
 
+(add-hook! treemacs-mode
+           (turn-on-solaire-mode))
+
 (after! company
   (setq company-idle-delay 0.3))
 
@@ -90,14 +96,20 @@
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"))
 
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (map! :leader
-      "0" #'winum-select-window-0-or-10
-      "1" #'winum-select-window-1
-      "2"  #'winum-select-window-2
-      "3" #'winum-select-window-3
-      "4" #'winum-select-window-4
-      "5" #'winum-select-window-5
-      "6" #'winum-select-window-6
-      "7" #'winum-select-window-7
-      "8" #'winum-select-window-8
-      "9" #'winum-select-window-9)
+      "0"   #'winum-select-window-0-or-10
+      "1"   #'winum-select-window-1
+      "2"   #'winum-select-window-2
+      "3"   #'winum-select-window-3
+      "4"   #'winum-select-window-4
+      "5"   #'winum-select-window-5
+      "6"   #'winum-select-window-6
+      "7"   #'winum-select-window-7
+      "8"   #'winum-select-window-8
+      "9"   #'winum-select-window-9
+      "a"   #'ace-window
+      :desc "Clear highlight" "s c" #'evil-ex-nohighlight)
+
+(use-package! just-mode)
+(add-to-list 'auto-mode-alist '("/Justfile\\'" . just-mode))
