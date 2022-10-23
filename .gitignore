@@ -3,5 +3,6 @@ vim/backup
 vim/undo
 vim/.netrwhist
 
+config/rclone
 config/kak/plugins/*
 !config/kak/plugins/plug.kak

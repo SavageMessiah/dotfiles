@@ -1,5 +1,4 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
@@ -58,17 +57,23 @@
 
 (setq doom-localleader-key ",")
 
-;;(use-package! aggressive-indent
-;;  :hook
-;;  (clojure-mode . aggressive-indent-mode))
-;;
+(use-package! just-mode)
+
+(use-package! graphql-mode)
+
+(use-package! aggressive-indent
+  :hook
+  (clojure-mode . aggressive-indent-mode))
+
 (use-package! evil-cleverparens
   :hook
   ((clojure-mode . evil-cleverparens-mode)
-   (lisp-mode . evil-cleverparens-mode)))
+   (emacs-lisp-mode . evil-cleverparens-mode)
+   (lisp-mode . evil-cleverparens-mode)
+   (cider-repl-mode . evil-cleverparens-mode)))
 
-(add-hook! clojure-mode
-  (set-fill-column 90)
+(after! clojure-mode
+  (setq cider-dynamic-indentation nil)
   (define-clojure-indent
     (be/deftype 1)
     (be/impl 1)
@@ -82,17 +87,81 @@
     (stats/send-time 1)
     (dlock/if-lock 1)))
 
+(defun portal.api/open ()
+  (interactive)
+  (cider-nrepl-sync-request:eval
+   "(portal.api/open)"))
+
+(defun portal.api/clear ()
+  (interactive)
+  (cider-nrepl-sync-request:eval "(portal.api/clear)"))
+
+(defun portal.api/close ()
+  (interactive)
+  (cider-nrepl-sync-request:eval "(portal.api/close)"))
+
+(map! (:localleader
+       (:map clojure-mode-map
+        (:prefix ("o" . "portal")
+         "o" #'portal.api/open
+         "c" #'portal.api/clear
+         "q" #'portal.api/close))))
+
+(add-hook! clojure-mode
+  (setq +format-with-lsp nil
+        lsp-completion-enable nil
+        lsp-ui-sideline-show-code-actions nil
+        lsp-ui-doc-enable t
+        lsp-lens-enable t
+        clojure-toplevel-inside-comment-form t)
+  (set-fill-column 90)
+  (display-fill-column-indicator-mode))
+
+(after! cider-mode
+  (setq cider-known-endpoints
+        '(("Standard Cluster REPL" "localhost" "7777")))
+  (add-hook! 'cider-mode-hook :append
+    (defun +put-cider-comp-back ()
+      (add-hook 'completion-at-point-functions #'cider-complete-at-point))))
+
 (after! company
   (setq company-idle-delay 0.3))
 
+;;maybe this can be replaced with (use-package! restclient-jq)
+(after! restclient
+  (require 'restclient-jq))
+
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (map! :leader
-      "0" #'winum-select-window-0-or-10
-      "1" #'winum-select-window-1
-      "2"  #'winum-select-window-2
-      "3" #'winum-select-window-3
-      "4" #'winum-select-window-4
-      "5" #'winum-select-window-5
-      "6" #'winum-select-window-6
-      "7" #'winum-select-window-7
-      "8" #'winum-select-window-8
-      "9" #'winum-select-window-9)
+      :desc "Switch window" ";" #'ace-window
+      :desc "Clear highlight" "s c" #'evil-ex-nohighlight)
+
+(custom-set-faces!
+  '(aw-leading-char-face
+    :foreground "white" :background "red"
+    :weight bold :height 2.5))
+
+(after! org 
+        (pushnew! org-link-abbrev-alist
+                  '("jira" . "https://lgscout.atlassian.net/browse/%s")
+                  '("hzn" . "https://lgscout.atlassian.net/browse/HZN-%s")
+                  '("sp" .  "https://lgscout.atlassian.net/browse/SP-%s")))
+
+(defun copy-current-line-position-to-clipboard ()
+  "Copy current line in file to clipboard as '</path/to/file>:<line-number>'.
+   File name will be relative to the current projectile project root."
+  (interactive)
+  (letrec ((file-name (file-relative-name (buffer-file-name) (projectile-project-root)))
+           (path-with-line-number
+            (concat file-name ":" (number-to-string (line-number-at-pos)))))
+    (kill-new path-with-line-number)
+    (message (concat path-with-line-number " copied to clipboard"))))
+
+(use-package! git-link)
+
+(after! git-link
+  (map! :leader
+        (:prefix "b"
+         :desc "Copy file and line # to clipboard" "@" #'git-link)))
+;;(:prefix "b"
+;;         :desc "Copy file and line # to clipboard" "@" #'copy-current-line-position-to-clipboard)
