@@ -6,7 +6,7 @@ if &term == "screen"
    set t_co=256
    set ttyfast
 endif
-colo nord
+"colo nord
 
 syntax on
 filetype plugin indent on
