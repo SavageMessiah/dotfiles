@@ -13,3 +13,6 @@ truncation_length = 5
 
 [golang]
 symbol = " "
+
+[python]
+symbol = "🐍 "

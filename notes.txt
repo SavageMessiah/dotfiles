@@ -1,0 +1,2 @@
+To fix path for kitty:
+sudo launchctl config user path /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin

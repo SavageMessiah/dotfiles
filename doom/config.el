@@ -55,6 +55,7 @@
 (setq deft-directory "~/notes")
 (setq deft-use-filename-as-title nil)
 
+(setq evil-snipe-override-evil-repeat-keys nil) ;;allow localleader to work right
 (setq doom-localleader-key ",")
 
 (use-package! just-mode)

@@ -1,6 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR __fish_initialized:3100
+SETUVAR --export GOOGLE_APPLICATION_CREDENTIALS:/Users/kennethallen/Downloads/regal\x2dthrone\x2d342820\x2d926d0f0ac082\x2ejson
+SETUVAR __fish_initialized:3400
 SETUVAR _fish_abbr_cdr:cd\x20\x28git\x20rev\x2dparse\x20\x2d\x2dshow\x2dtoplevel\x29
 SETUVAR _fish_abbr_gc:git\x20commit
 SETUVAR _fish_abbr_gg:lazygit
@@ -41,4 +42,4 @@ SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
-SETUVAR fish_user_paths:/home/ken/go/bin\x1e/home/ken/\x2ecargo/bin/\x1e/home/ken/\x2eemacs\x2ed/bin/
+SETUVAR fish_pager_color_selected_background:\x2dr
