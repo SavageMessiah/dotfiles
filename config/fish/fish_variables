@@ -5,9 +5,6 @@ SETUVAR _fish_abbr_cdr:cd\x20\x28git\x20rev\x2dparse\x20\x2d\x2dshow\x2dtoplevel
 SETUVAR _fish_abbr_gc:git\x20commit
 SETUVAR _fish_abbr_gg:lazygit
 SETUVAR _fish_abbr_gs:git\x20status
-SETUVAR _fish_abbr_ll:exa\x20\x2dlb\x20\x2d\x2dgit
-SETUVAR _fish_abbr_ls:exa\x20\x2dlbG\x20\x2d\x2dgit
-SETUVAR _fish_abbr_lt:exa\x20\x2dlbT\x20\x2d\x2dgit
 SETUVAR _fish_abbr_za:zoxide\x20add
 SETUVAR _fish_abbr_zq:zoxide\x20query
 SETUVAR _fish_abbr_zqi:zoxide\x20query\x20\x2di

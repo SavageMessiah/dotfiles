@@ -6,7 +6,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Ken Allen"
-      user-mail-address "kallen@lookingglasscyber.com")
+      user-mail-address "cardboard42@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -20,7 +20,7 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Source Code Pro" :size 14))
+(setq doom-font (font-spec :family "Source Code Pro" :size 20))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -59,8 +59,6 @@
 
 (use-package! just-mode)
 
-(use-package! graphql-mode)
-
 (use-package! aggressive-indent
   :hook
   (clojure-mode . aggressive-indent-mode))
@@ -75,17 +73,9 @@
 (after! clojure-mode
   (setq cider-dynamic-indentation nil)
   (define-clojure-indent
-    (be/deftype 1)
-    (be/impl 1)
     (\?> 1)
-    (condas-> 2)
-    (prop/for-all 1)
-    (abstract/extend-schema 3)
     (match 1)
-    (for-map 1)
-    (log/extend-context 1)
-    (stats/send-time 1)
-    (dlock/if-lock 1)))
+    (for-map 1)))
 
 (defun portal.api/open ()
   (interactive)
@@ -118,8 +108,6 @@
   (display-fill-column-indicator-mode))
 
 (after! cider-mode
-  (setq cider-known-endpoints
-        '(("Standard Cluster REPL" "localhost" "7777")))
   (add-hook! 'cider-mode-hook :append
     (defun +put-cider-comp-back ()
       (add-hook 'completion-at-point-functions #'cider-complete-at-point))))
@@ -140,28 +128,3 @@
   '(aw-leading-char-face
     :foreground "white" :background "red"
     :weight bold :height 2.5))
-
-(after! org 
-        (pushnew! org-link-abbrev-alist
-                  '("jira" . "https://lgscout.atlassian.net/browse/%s")
-                  '("hzn" . "https://lgscout.atlassian.net/browse/HZN-%s")
-                  '("sp" .  "https://lgscout.atlassian.net/browse/SP-%s")))
-
-(defun copy-current-line-position-to-clipboard ()
-  "Copy current line in file to clipboard as '</path/to/file>:<line-number>'.
-   File name will be relative to the current projectile project root."
-  (interactive)
-  (letrec ((file-name (file-relative-name (buffer-file-name) (projectile-project-root)))
-           (path-with-line-number
-            (concat file-name ":" (number-to-string (line-number-at-pos)))))
-    (kill-new path-with-line-number)
-    (message (concat path-with-line-number " copied to clipboard"))))
-
-(use-package! git-link)
-
-(after! git-link
-  (map! :leader
-        (:prefix "b"
-         :desc "Copy file and line # to clipboard" "@" #'git-link)))
-;;(:prefix "b"
-;;         :desc "Copy file and line # to clipboard" "@" #'copy-current-line-position-to-clipboard)

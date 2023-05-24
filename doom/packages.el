@@ -52,6 +52,4 @@
 (package! evil-cleverparens)
 (package! aggressive-indent)
 (package! just-mode)
-(package! graphql-mode)
 (package! restclient-jq)
-(package! git-link)
