@@ -2,8 +2,6 @@ set -x EDITOR nvim
 set -x VISUAL nvim
 set -x GIT_EDITOR nvim
 
-set -x BAT_THEME Nord
-
 if status is-interactive
     zoxide init fish | source
     starship init fish | source
