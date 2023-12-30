@@ -8,7 +8,7 @@ if status is-interactive
     source ~/.config/fish/tokyonight_night.fish
 end
 set FZF_CTRL_T_COMMAND fd
-set -x FZF_CTRL_T_OPTS "--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {} || exa -lbT --git {}'"i
+set -x FZF_CTRL_T_OPTS "--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {} || lsd -lg --tree {}'"i
 
 set -x PATH ~/bin ~/.cargo/bin ~/.ghcup/bin ~/.local/bin /usr/local/bin /bin /usr/bin
 
