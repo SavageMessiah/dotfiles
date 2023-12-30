@@ -6,3 +6,4 @@ vim/.netrwhist
 config/rclone
 config/kak/plugins/*
 !config/kak/plugins/plug.kak
+config/kitty/kitty.conf.bak

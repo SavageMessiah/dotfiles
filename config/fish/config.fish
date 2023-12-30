@@ -1,17 +1,18 @@
-set -x EDITOR emacs
-set -x VISUAL emacs
-set -x GIT_EDITOR emacs
+set -x EDITOR nvim
+set -x VISUAL nvim
+set -x GIT_EDITOR nvim
 
 set -x BAT_THEME Nord
 
 if status is-interactive
     zoxide init fish | source
     starship init fish | source
+    source ~/.config/fish/tokyonight_night.fish
 end
 set FZF_CTRL_T_COMMAND fd
 set -x FZF_CTRL_T_OPTS "--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {} || exa -lbT --git {}'"i
 
-set -x PATH ~/bin ~/.cargo/bin ~/.local/bin /usr/local/bin /bin /usr/bin
+set -x PATH ~/bin ~/.cargo/bin ~/.ghcup/bin ~/.local/bin /usr/local/bin /bin /usr/bin
 
 set -x GOPATH ~/.local/go
 
