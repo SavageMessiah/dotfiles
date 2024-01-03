@@ -21,6 +21,8 @@ alias lt='lsd --tree'
 alias ls='lsd'
 alias la='lsd -a'
 alias cdr='cd (git rev-parse --show-toplevel)'
+alias cbp='xclip -o -sel clip'
+alias cbc='xclip -sel clip'
 
 abbr -g gc 'git commit'
 abbr -g gs 'git status'
