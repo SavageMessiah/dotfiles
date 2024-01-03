@@ -53,3 +53,4 @@
 (package! aggressive-indent)
 (package! just-mode)
 (package! restclient-jq)
+(package! nasm-mode)
