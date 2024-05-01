@@ -12,6 +12,7 @@ return {
   { "folke/tokyonight.nvim", opts = {
     style = "night",
   } },
+  { "EdenEast/nightfox.nvim" },
   {
     "mrcjkb/haskell-tools.nvim",
     version = "^3", -- Recommended
