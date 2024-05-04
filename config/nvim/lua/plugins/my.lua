@@ -15,7 +15,7 @@ return {
     "folke/tokyonight.nvim",
     opts = {
       style = "night",
-    }
+    },
   },
   {
     "mrcjkb/haskell-tools.nvim",
@@ -24,14 +24,14 @@ return {
   },
   { "williamboman/mason-lspconfig.nvim", enabled = false },
   {
-    'hrsh7th/nvim-cmp',
+    "hrsh7th/nvim-cmp",
     opts = function(_, opts)
-      local cmp = require('cmp')
+      local cmp = require("cmp")
 
       opts.sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'buffer' },
-        { name = 'path' },
+        { name = "nvim_lsp" },
+        { name = "buffer" },
+        { name = "path" },
       })
     end,
   },
@@ -48,5 +48,35 @@ return {
       { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
+  },
+  {
+    "Olical/conjure",
+    ft = { "clojure", "fennel", "janet" }, -- etc
+    dependencies = {
+      {
+        "PaterJason/cmp-conjure",
+        config = function()
+          local cmp = require("cmp")
+          local config = cmp.get_config()
+          table.insert(config.sources, {
+            name = "buffer",
+            option = {
+              sources = {
+                { name = "conjure" },
+              },
+            },
+          })
+          cmp.setup(config)
+        end,
+      },
+    },
+    config = function(_, opts)
+      require("conjure.main").main()
+      require("conjure.mapping")["on-filetype"]()
+    end,
+    init = function()
+      -- Set configuration options here
+      -- vim.g["conjure#debug"] = true
+    end,
   },
 }
