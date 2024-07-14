@@ -55,7 +55,6 @@ return {
   },
   {
     "julienvincent/nvim-paredit",
-    enabled = false,
     ft = { "clojure" },
     config = function()
       require("nvim-paredit").setup()
@@ -73,6 +72,13 @@ return {
     config = true,
   },
   { "PaterJason/nvim-treesitter-sexp", enabled = false },
+  {
+    "Olical/conjure",
+    event = function(_, _)
+      return {}
+    end,
+    ft = { "clojure", "fennel", "janet" },
+  },
   {
     "neovim/nvim-lspconfig",
     opts = {
