@@ -4,12 +4,14 @@ return {
     opts = {
       ensure_installed = {
         "c",
+        "clojure",
         "haskell",
         "lua",
         "markdown",
       },
     },
   },
+  { "clojure-vim/clojure.vim", branch = "indent-forms" },
   { "EdenEast/nightfox.nvim" },
   {
     "folke/tokyonight.nvim",
@@ -27,12 +29,14 @@ return {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require("cmp")
-
-      opts.sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "buffer" },
-        { name = "path" },
-      })
+      opts.mapping["<CR>"] = nil
+      opts.mapping["<C-Space>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.confirm({ select = true })
+        else
+          cmp.complete()
+        end
+      end)
     end,
   },
   {
@@ -50,33 +54,31 @@ return {
     },
   },
   {
-    "Olical/conjure",
-    ft = { "clojure", "fennel", "janet" }, -- etc
+    "julienvincent/nvim-paredit",
+    enabled = false,
+    ft = { "clojure" },
+    config = function()
+      require("nvim-paredit").setup()
+    end,
+  },
+  {
+    "NeogitOrg/neogit",
     dependencies = {
-      {
-        "PaterJason/cmp-conjure",
-        config = function()
-          local cmp = require("cmp")
-          local config = cmp.get_config()
-          table.insert(config.sources, {
-            name = "buffer",
-            option = {
-              sources = {
-                { name = "conjure" },
-              },
-            },
-          })
-          cmp.setup(config)
-        end,
+      "nvim-lua/plenary.nvim", -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+
+      -- Only one of these is needed, not both.
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+    config = true,
+  },
+  { "PaterJason/nvim-treesitter-sexp", enabled = false },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        clojure_lsp = {},
       },
     },
-    config = function(_, opts)
-      require("conjure.main").main()
-      require("conjure.mapping")["on-filetype"]()
-    end,
-    init = function()
-      -- Set configuration options here
-      -- vim.g["conjure#debug"] = true
-    end,
   },
 }
