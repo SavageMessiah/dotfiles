@@ -29,6 +29,9 @@ return {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require("cmp")
+      if type(opts.sources) == "table" then
+        vim.list_extend(opts.sources, { name = "clojure" })
+      end
       opts.mapping["<CR>"] = nil
       opts.mapping["<C-Space>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
@@ -85,6 +88,12 @@ return {
       servers = {
         clojure_lsp = {},
       },
+    },
+  },
+  {
+    "echasnovski/mini.pairs",
+    opts = {
+      skip_unbalanced = false,
     },
   },
 }
