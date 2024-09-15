@@ -20,12 +20,12 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Source Code Pro" :size 20))
+(setq doom-font (font-spec :family "Fira Code" :size 14))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-Iosvkem)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -64,6 +64,8 @@
   (clojure-mode . aggressive-indent-mode))
 
 (use-package! evil-cleverparens
+  :init
+  (setq evil-cleverparens-use-s-and-S nil)
   :hook
   ((clojure-mode . evil-cleverparens-mode)
    (emacs-lisp-mode . evil-cleverparens-mode)
@@ -73,9 +75,16 @@
 (after! clojure-mode
   (setq cider-dynamic-indentation nil)
   (define-clojure-indent
-    (\?> 1)
-    (match 1)
-    (for-map 1)))
+   (\?> 1)
+   (match 1)
+   (for-map 1)
+
+   (<<sources 1)
+   (<<if 1)
+   (<<subsource 1)
+   (<<query-topology 3)
+   (case> 0)
+   ))
 
 (defun portal.api/open ()
   (interactive)
@@ -92,10 +101,10 @@
 
 (map! (:localleader
        (:map clojure-mode-map
-        (:prefix ("o" . "portal")
-         "o" #'portal.api/open
-         "c" #'portal.api/clear
-         "q" #'portal.api/close))))
+             (:prefix ("o" . "portal")
+                      "o" #'portal.api/open
+                      "c" #'portal.api/clear
+                      "q" #'portal.api/close))))
 
 (add-hook! clojure-mode
   (setq +format-with-lsp nil
@@ -107,19 +116,25 @@
   (set-fill-column 90)
   (display-fill-column-indicator-mode))
 
+(after! clojure-mode
+  (define-clojure-indent))
+
 (after! cider-mode
   (add-hook! 'cider-mode-hook :append
     (defun +put-cider-comp-back ()
       (add-hook 'completion-at-point-functions #'cider-complete-at-point))))
 
 (after! company
+  (map! (:map company-active-map
+              "C-SPC" #'company-complete-selection
+              "RET" nil
+              "<return>") nil)
   (setq company-idle-delay 0.3))
 
 ;;maybe this can be replaced with (use-package! restclient-jq)
 (after! restclient
   (require 'restclient-jq))
 
-(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (map! :leader
       :desc "Switch window" ";" #'ace-window
       :desc "Clear highlight" "s c" #'evil-ex-nohighlight)

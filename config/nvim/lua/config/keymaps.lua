@@ -9,7 +9,3 @@ map("n", "<C-Left>", "<C-w>h", { desc = "Go to Left Window", remap = true })
 map("n", "<C-Down>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
 map("n", "<C-Up>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
 map("n", "<C-Right>", "<C-w>l", { desc = "Go to Right Window", remap = true })
-
-local neogit = require("neogit")
-
-map("n", "<leader>gg", neogit.open, { desc = "Open NeoGit" })
