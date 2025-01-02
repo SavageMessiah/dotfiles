@@ -29,9 +29,6 @@ return {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require("cmp")
-      if type(opts.sources) == "table" then
-        vim.list_extend(opts.sources, { name = "clojure" })
-      end
       opts.mapping["<CR>"] = nil
       opts.mapping["<C-Space>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
@@ -70,6 +67,17 @@ return {
       return {}
     end,
     ft = { "clojure", "fennel", "janet" },
+    dependencies = { "PaterJason/cmp-conjure" },
+  },
+  {
+    "PaterJason/cmp-conjure",
+    lazy = true,
+    config = function()
+      local cmp = require("cmp")
+      local config = cmp.get_config()
+      table.insert(config.sources, { name = "conjure" })
+      return cmp.setup(config)
+    end,
   },
   {
     "neovim/nvim-lspconfig",
