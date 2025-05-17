@@ -19,6 +19,7 @@ return {
       style = "night",
     },
   },
+  { "rebelot/kanagawa.nvim" },
   {
     "mrcjkb/haskell-tools.nvim",
     version = "^3", -- Recommended

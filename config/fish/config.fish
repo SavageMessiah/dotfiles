@@ -5,7 +5,7 @@ set -x GIT_EDITOR nvim
 if status is-interactive
     zoxide init fish | source
     starship init fish | source
-    source ~/.config/fish/tokyonight_night.fish
+    source ~/.config/fish/kanagawa.fish
 end
 set FZF_CTRL_T_COMMAND fd
 set -x FZF_CTRL_T_OPTS "--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {} || lsd -lg --tree {}'"i
