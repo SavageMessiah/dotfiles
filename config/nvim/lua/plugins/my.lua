@@ -25,7 +25,7 @@ return {
     version = "^3", -- Recommended
     ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
   },
-  { "williamboman/mason-lspconfig.nvim", enabled = false },
+  { "mason-org/mason-lspconfig.nvim", enabled = false },
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
@@ -89,7 +89,7 @@ return {
     },
   },
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     opts = {
       skip_unbalanced = false,
     },
