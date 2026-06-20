@@ -125,6 +125,8 @@ Config.on_filetype('clojure', function()
   add { { src = 'https://github.com/clojure-vim/clojure.vim', version = 'indent-forms'},
         'https://github.com/Olical/conjure',
         'https://github.com/julienvincent/nvim-paredit'}
+  vim.keymap.set('i', "'", "'", { buffer = true })
+  vim.keymap.set('i', "`", "`", { buffer = true })
   require("nvim-paredit").setup()
 end)
 

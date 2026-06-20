@@ -33,7 +33,7 @@ local now, now_if_args, later = Config.now, Config.now_if_args, Config.later
 -- - `:h mini.nvim-color-schemes` - list of other color schemes
 -- - `:h MiniHues-examples` - how to define highlighting with 'mini.hues'
 -- - 'plugin/40_plugins.lua' honorable mentions - other good color schemes
-now(function() vim.cmd('colorscheme miniwinter') end)
+-- now(function() vim.cmd('colorscheme miniwinter') end)
 
 -- You can try these other 'mini.hues'-based color schemes (uncomment with `gcc`):
 -- now(function() vim.cmd('colorscheme minispring') end)
@@ -56,12 +56,9 @@ now(function() vim.cmd('colorscheme miniwinter') end)
 now(function()
   require('mini.basics').setup({
     -- Manage options in 'plugin/10_options.lua' for didactic purposes
-    options = { basic = false },
+    options = { basic = true },
     mappings = {
-      -- Create `<C-hjkl>` mappings for window navigation
-      windows = true,
-      -- Create `<M-hjkl>` mappings for navigation in Insert and Command modes
-      move_with_alt = true,
+      option_toggle_prefix = nil,
     },
   })
 end)
