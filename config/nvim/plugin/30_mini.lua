@@ -247,7 +247,7 @@ now_if_args(function()
   -- searches up the file tree until the first root marker ('.git' or 'Makefile')
   -- and sets their parent directory as a current directory.
   -- This is helpful when simultaneously dealing with files from several projects.
-  MiniMisc.setup_auto_root()
+  MiniMisc.setup_auto_root({ "deps.edn", "Cargo.toml", "Makefile", "build.zig", "justfile", ".git" })
 
   -- Restore latest cursor position on file open
   MiniMisc.setup_restore_cursor()
@@ -389,16 +389,16 @@ later(function()
     -- Explicitly opt-in for set of common keys to trigger clue window
     triggers = {
       { mode = { 'n', 'x' }, keys = '<Leader>' }, -- Leader triggers
-      { mode =   'n',        keys = '\\' },       -- mini.basics
+      { mode = 'n',          keys = '\\' },       -- mini.basics
       { mode = { 'n', 'x' }, keys = '[' },        -- mini.bracketed
       { mode = { 'n', 'x' }, keys = ']' },
-      { mode =   'i',        keys = '<C-x>' },    -- Built-in completion
+      { mode = 'i',          keys = '<C-x>' },    -- Built-in completion
       { mode = { 'n', 'x' }, keys = 'g' },        -- `g` key
       { mode = { 'n', 'x' }, keys = "'" },        -- Marks
       { mode = { 'n', 'x' }, keys = '`' },
       { mode = { 'n', 'x' }, keys = '"' },        -- Registers
       { mode = { 'i', 'c' }, keys = '<C-r>' },
-      { mode =   'n',        keys = '<C-w>' },    -- Window commands
+      { mode = 'n',          keys = '<C-w>' },    -- Window commands
       { mode = { 'n', 'x' }, keys = 's' },        -- `s` key (mini.surround, etc.)
       { mode = { 'n', 'x' }, keys = 'z' },        -- `z` key
     },
@@ -552,40 +552,6 @@ later(function()
   MiniKeymap.map_multistep('i', '<CR>', { 'pmenu_accept', 'minipairs_cr' })
   -- On `<BS>` just try to account for pairs from 'mini.pairs'
   MiniKeymap.map_multistep('i', '<BS>', { 'minipairs_bs' })
-end)
-
--- Window with text overview. It is displayed on the right hand side. Can be used
--- for quick overview and navigation. Hidden by default. Example usage:
--- - `<Leader>mt` - toggle map window
--- - `<Leader>mf` - focus on the map for fast navigation
--- - `<Leader>ms` - change map's side (if it covers something underneath)
---
--- See also:
--- - `:h MiniMap.gen_encode_symbols` - list of symbols to use for text encoding
--- - `:h MiniMap.gen_integration` - list of integrations to show in the map
---
--- NOTE: Might introduce lag on very big buffers (10000+ lines)
-later(function()
-  local map = require('mini.map')
-  map.setup({
-    -- Use Braille dots to encode text
-    symbols = { encode = map.gen_encode_symbols.dot('4x2') },
-    -- Show built-in search matches, 'mini.diff' hunks, and diagnostic entries
-    integrations = {
-      map.gen_integration.builtin_search(),
-      map.gen_integration.diff(),
-      map.gen_integration.diagnostic(),
-    },
-  })
-
-  -- Map built-in navigation characters to force map refresh
-  for _, key in ipairs({ 'n', 'N', '*', '#' }) do
-    local rhs = key
-      -- Also open enough folds when jumping to the next match
-      .. 'zv'
-      .. '<Cmd>lua MiniMap.refresh({}, { lines = false, scrollbar = false })<CR>'
-    vim.keymap.set('n', key, rhs)
-  end
 end)
 
 -- Move any selection in any direction. Example usage in Normal mode:

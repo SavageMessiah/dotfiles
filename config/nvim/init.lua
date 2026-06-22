@@ -119,3 +119,10 @@ Config.on_packchanged = function(plugin_name, kinds, callback, desc)
   end
   Config.new_autocmd('PackChanged', '*', f, desc)
 end
+
+Config.new_autocmd('TermClose', '*',
+  function()
+    if vim.v.event.status == 0 then
+      vim.cmd("bdelete!")
+    end
+  end)

@@ -51,19 +51,14 @@ now_if_args(function()
   -- After changing this, restart Neovim once to install necessary parsers. Wait
   -- for the installation to finish before opening a file for added language(s).
   local languages = {
-    -- These are already pre-installed with Neovim. Used as an example.
     'lua',
     'vimdoc',
     'markdown',
     'clojure',
     'c',
     'go',
-    'rust'
-    -- Add here more languages with which you want to use tree-sitter
-    -- To see available languages:
-    -- - Execute `:=require('nvim-treesitter').get_available()`
-    -- - Visit 'SUPPORTED_LANGUAGES.md' file at
-    --   https://github.com/nvim-treesitter/nvim-treesitter/blob/main
+    'rust',
+    'zig'
   }
   local isnt_installed = function(lang)
     return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
@@ -83,21 +78,6 @@ now_if_args(function()
 end)
 
 -- Language servers ===========================================================
-
--- Language Server Protocol (LSP) is a set of conventions that power creation of
--- language specific tools. It requires two parts:
--- - Server - program that performs language specific computations.
--- - Client - program that asks server for computations and shows results.
---
--- Here Neovim itself is a client (see `:h vim.lsp`). Language servers need to
--- be installed separately based on your OS, CLI tools, and preferences.
--- See note about 'mason.nvim' at the bottom of the file.
---
--- Neovim's team collects commonly used configurations for most language servers
--- inside 'neovim/nvim-lspconfig' plugin.
---
--- Add it now if file (and not 'mini.starter') is shown after startup.
---
 -- Troubleshooting:
 -- - Run `:checkhealth vim.lsp` to see potential issues.
 now_if_args(function()
@@ -106,9 +86,8 @@ now_if_args(function()
   -- Use `:h vim.lsp.enable()` to automatically enable language server based on
   -- the rules provided by 'nvim-lspconfig'.
   -- Use `:h vim.lsp.config()` or 'after/lsp/' directory to configure servers.
-  -- Uncomment and tweak the following `vim.lsp.enable()` call to enable servers.
   vim.lsp.enable({
-    'gopls', 'clangd', 'clojure_lsp', 'lua_ls'
+    'gopls', 'clangd', 'clojure_lsp', 'lua_ls', 'zls'
   })
 end)
 
@@ -131,13 +110,6 @@ Config.on_filetype('clojure', function()
 end)
 
 -- Formatting =================================================================
-
--- Programs dedicated to text formatting (a.k.a. formatters) are very useful.
--- Neovim has built-in tools for text formatting (see `:h gq` and `:h 'formatprg'`).
--- They can be used to configure external programs, but it might become tedious.
---
--- The 'stevearc/conform.nvim' plugin is a good and maintained solution for easier
--- formatting setup.
 later(function()
   add({ 'https://github.com/stevearc/conform.nvim' })
 
@@ -161,9 +133,6 @@ later(function()
   })
 end)
 
--- Beautiful, usable, well maintained color schemes outside of 'mini.nvim' and
--- have full support of its highlight groups. Use if you don't like 'miniwinter'
--- enabled in 'plugin/30_mini.lua' or other suggested 'mini.hues' based ones.
 Config.now(function()
   add { { src = "https://github.com/catppuccin/nvim", name = "catppuccin" } }
 
